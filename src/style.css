@@ -18,3 +18,15 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+.top{
+    background-color: bisque;
+}
+
+.sidebar{
+    background-color: blueviolet;
+}
+
+.content{
+    background-color: brown;
+}

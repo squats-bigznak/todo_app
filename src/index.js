@@ -1,18 +1,6 @@
 import {Todo, Project, addTodoToProject, delTodoFromProject,
     delTodo, viewAllInProject, viewTodo} from './logic';
-
-//todo app
-//begin with one collection of all projects
-//have buttons for add project, add todo
-//for add todo, include fields -
-//"title, description, dueDate, priority, and notes"
-//need options for-
-//1. view all projects
-//2. view all todos in each project
-//3. expand a single todo to see/edit its details
-//4. delete a todo
-//make console version with just data structures first 
-//and then create DOM manip
+import './style.css';
 
 
 const todo1 = new Todo("wash dog", "give otto a bath", "tomorrow", "high priority", "not fun", "done");
