@@ -4,8 +4,6 @@ import './style.css';
 
 function showNewProjectForm(){
 
-    console.log("newproject")
-
     let para = document.createElement("p");
     para.classList.add('form');
     para.id = 'hideme';
@@ -13,7 +11,6 @@ function showNewProjectForm(){
     let element = document.getElementById("newcont");
     element.appendChild(para);
     
-
     let titlelabel = document.createElement("LABEL");
     let titlelabeltext = document.createTextNode("title");
     titlelabel.setAttribute("for", "title");
@@ -42,32 +39,18 @@ function showNewProjectForm(){
 
     submitbtn.addEventListener("click", () => {
         let newproject = new Project(titlefield.value, descriptionfield.value);
-        // console.log(project3);
         allProjects.push(newproject);
         console.log(allProjects);
-        //TODO need to hide form after hitting submit button
         para.parentNode.removeChild(para);
-        // document.getElementsByClassName('form').hidden = true;
-        // document.getElementById('hideme').style.visibility = 'hidden';
-        // submitbtn.removeEventListener("click");
+        
     });
          
-    
-    
 }
-
-function testFunc(){
-    console.log ("input worked")
-}
-
-
 
 function showNewTodoForm(){
     console.log("newtodo")
 
 }
-
-
 
 
 
@@ -93,8 +76,6 @@ delTodoFromProject(project1, todo1);
 viewAllInProject(project1);
 
 viewTodo(todo1);
-
-
 
 
 let newprobtn = document.getElementById("newprojectbutton");
