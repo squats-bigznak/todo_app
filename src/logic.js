@@ -1,4 +1,5 @@
 const allProjects = [];
+const allTodos = [];
 
 const Todo = function(title, description, dueDate, priority, notes, status) {   
     this.title = title;
@@ -37,5 +38,5 @@ function viewTodo(td){
 };
 
 
-export { allProjects, Todo, Project, addTodoToProject, delTodoFromProject,
+export { allProjects, allTodos, Todo, Project, addTodoToProject, delTodoFromProject,
     delTodo, viewAllInProject,viewTodo};

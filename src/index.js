@@ -1,54 +1,151 @@
-import {allProjects, Todo, Project, addTodoToProject, delTodoFromProject,
+import {allProjects, allTodos, Todo, Project, addTodoToProject, delTodoFromProject,
     delTodo, viewAllInProject, viewTodo} from './logic';
 import './style.css';
 
 function showNewProjectForm(){
 
-    let para = document.createElement("p");
-    para.classList.add('form');
-    para.id = 'hideme';
+    let projectbox = document.createElement("p");
+    projectbox.classList.add('form');
+    projectbox.id = 'hideme';
 
-    let element = document.getElementById("newcont");
-    element.appendChild(para);
+    let frame = document.getElementById("newcont");
+    frame.appendChild(projectbox);
     
     let titlelabel = document.createElement("LABEL");
     let titlelabeltext = document.createTextNode("title");
+    titlelabel.classList.add('labels');
     titlelabel.setAttribute("for", "title");
     titlelabel.appendChild(titlelabeltext);
 
-    let titlefield = document.createElement("INPUT");
+    let titlefield = document.createElement("TEXTAREA");
     titlefield.setAttribute("type", "text");
-    para.appendChild(titlelabel);
-    para.appendChild(titlefield);
+    titlefield.classList.add('fields');
+    projectbox.appendChild(titlelabel);
+    projectbox.appendChild(titlefield);
 
     let descriptionlabel = document.createElement("LABEL");
     let descriptionlabeltext = document.createTextNode("description");
+    descriptionlabel.classList.add('labels');
     descriptionlabel.setAttribute("for", "description");
     descriptionlabel.appendChild(descriptionlabeltext);
 
-    let descriptionfield = document.createElement("INPUT");
+    let descriptionfield = document.createElement("TEXTAREA");
     descriptionfield.setAttribute("type", "text");
-    para.appendChild(descriptionlabel);
-    para.appendChild(descriptionfield);
+    descriptionfield.classList.add('fields');
+    projectbox.appendChild(descriptionlabel);
+    projectbox.appendChild(descriptionfield);
 
     let submitbtn = document.createElement("BUTTON");
     let submitbtntext = document.createTextNode("submit");
 
     submitbtn.appendChild(submitbtntext);
-    para.appendChild(submitbtn);
+    projectbox.appendChild(submitbtn);
 
     submitbtn.addEventListener("click", () => {
         let newproject = new Project(titlefield.value, descriptionfield.value);
         allProjects.push(newproject);
         console.log(allProjects);
-        para.parentNode.removeChild(para);
+        projectbox.parentNode.removeChild(projectbox);
         
     });
          
 }
 
 function showNewTodoForm(){
-    console.log("newtodo")
+
+    // (title, description, dueDate, priority, notes, status)
+    let todobox = document.createElement("p");
+    todobox.classList.add('form');
+    todobox.id = 'hideme';
+
+    let frame = document.getElementById("newcont");
+    frame.appendChild(todobox);
+    
+    let titlelabel = document.createElement("LABEL");
+    let titlelabeltext = document.createTextNode("title");
+    titlelabel.classList.add('labels');
+    titlelabel.setAttribute("for", "title");
+    titlelabel.appendChild(titlelabeltext);
+
+    let titlefield = document.createElement("TEXTAREA");
+    titlefield.setAttribute("type", "text");
+    titlefield.classList.add('fields');
+    todobox.appendChild(titlelabel);
+    todobox.appendChild(titlefield);
+
+    let descriptionlabel = document.createElement("LABEL");
+    let descriptionlabeltext = document.createTextNode("description");
+    descriptionlabel.classList.add('labels');
+    descriptionlabel.setAttribute("for", "description");
+    descriptionlabel.appendChild(descriptionlabeltext);
+
+    let descriptionfield = document.createElement("TEXTAREA");
+    descriptionfield.setAttribute("type", "text");
+    descriptionfield.classList.add('fields');
+    todobox.appendChild(descriptionlabel);
+    todobox.appendChild(descriptionfield);
+
+    let duedatelabel = document.createElement("LABEL");
+    let duedatelabeltext = document.createTextNode("duedate");
+    duedatelabel.classList.add('labels');
+    duedatelabel.setAttribute("for", "duedate");
+    duedatelabel.appendChild(duedatelabeltext);
+
+    let duedatefield = document.createElement("TEXTAREA");
+    duedatefield.setAttribute("type", "text");
+    duedatefield.classList.add('fields');
+    todobox.appendChild(duedatelabel);
+    todobox.appendChild(duedatefield);
+
+    let prioritylabel = document.createElement("LABEL");
+    let prioritylabeltext = document.createTextNode("priority");
+    prioritylabel.classList.add('labels');
+    prioritylabel.setAttribute("for", "priority");
+    prioritylabel.appendChild(prioritylabeltext);
+
+    let priorityfield = document.createElement("TEXTAREA");
+    priorityfield.setAttribute("type", "text");
+    priorityfield.classList.add('fields');
+    todobox.appendChild(prioritylabel);
+    todobox.appendChild(priorityfield);
+
+    let noteslabel = document.createElement("LABEL");
+    let noteslabeltext = document.createTextNode("notes");
+    noteslabel.classList.add('labels');
+    noteslabel.setAttribute("for", "notes");
+    noteslabel.appendChild(noteslabeltext);
+
+    let notesfield = document.createElement("TEXTAREA");
+    notesfield.setAttribute("type", "text");
+    notesfield.classList.add('fields');
+    todobox.appendChild(noteslabel);
+    todobox.appendChild(notesfield);
+
+    let statuslabel = document.createElement("LABEL");
+    let statuslabeltext = document.createTextNode("status");
+    statuslabel.classList.add('labels');
+    statuslabel.setAttribute("for", "status");
+    statuslabel.appendChild(statuslabeltext);
+
+    let statusfield = document.createElement("TEXTAREA");
+    statusfield.setAttribute("type", "text");
+    statusfield.classList.add('fields');
+    todobox.appendChild(statuslabel);
+    todobox.appendChild(statusfield);
+
+    let submitbtn = document.createElement("BUTTON");
+    let submitbtntext = document.createTextNode("submit");
+
+    submitbtn.appendChild(submitbtntext);
+    todobox.appendChild(submitbtn);
+
+    submitbtn.addEventListener("click", () => {
+        let newtodo = new Todo(titlefield.value, descriptionfield.value, duedatefield.value, priorityfield.value, notesfield.value, statusfield.value);
+        allTodos.push(newtodo);
+        console.log(allTodos);
+        todobox.parentNode.removeChild(todobox);
+        
+    });
 
 }
 
