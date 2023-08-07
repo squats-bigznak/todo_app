@@ -1,4 +1,4 @@
-// function logic(){
+const allProjects = [];
 
 const Todo = function(title, description, dueDate, priority, notes, status) {   
     this.title = title;
@@ -36,7 +36,6 @@ function viewTodo(td){
     console.log(td);
 };
 
-// }
 
-export { Todo, Project, addTodoToProject, delTodoFromProject,
+export { allProjects, Todo, Project, addTodoToProject, delTodoFromProject,
     delTodo, viewAllInProject,viewTodo};

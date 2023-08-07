@@ -22,9 +22,9 @@ time, mark, audio, video {
 div{
     
     font-family: 'Courier New', Courier, monospace;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: bolder;
-    color: rgb(175, 205, 232);
+    color: rgb(15, 1, 28);
     
     
 }
@@ -44,7 +44,7 @@ div{
 
 .top{
     flex:.5;
-    background-color: bisque;
+    background-color: rgb(78, 202, 244);
 }
 .middle{
     flex: 5;
@@ -54,11 +54,73 @@ div{
 
 .sidebar{
     flex: 2;
-    background-color: blueviolet;
+    background-color: rgb(78, 127, 232);
 }
 
 .content{
     flex: 5;
     
-    background-color: brown;
+    background-color: rgb(78, 83, 232);
+}
+
+button{
+	background-color: rgb(78, 7, 162); 
+	border: none;
+	border-radius: 10px;
+	color: white;
+	margin: 4px;
+	padding: 8px 18px;
+    font-family: 'Courier New', Courier, monospace;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 20px;
+
+  }
+
+  button:hover{
+    color: #4b13bb;
+    border: #4b13bb solid 1px;
+    background:#fff;
+    transition:.5s;
+  }
+
+  button:active {
+    margin-left: 1px 1px 0;
+    box-shadow: -1px -1px 1px #000;
+    outline: 1px solid black;
+    background-image: linear-gradient(to top, #f4f5f5, #dfdddd);
+    transition:.5s;
+}
+
+.form{
+	display: flex;
+	position: absolute;
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+    /* width: fit-content;
+   height: fit-content; */
+   width: 100px;
+   height: 100px;
+   top: 25%;
+   left: 25%;
+    /* height: 100px; */
+	background-color: #a2aaed;
+    color: rgb(3, 60, 32);
+    text-align: center;
+	margin:100px 100px;
+	border: 100px;
+	border-radius: 25px;
+	padding: 100px;
+	opacity: .9;
+    inset: unset;
+	font-family: 'Roboto', sans-serif;
+ 	/* cursor: pointer; */
+  	transition: 0.25s all ease-in-out;
+      /* top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0; */
+
 }
