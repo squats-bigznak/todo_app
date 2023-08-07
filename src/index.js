@@ -8,9 +8,11 @@ function showNewProjectForm(){
 
     let para = document.createElement("p");
     para.classList.add('form');
+    para.id = 'hideme';
 
     let element = document.getElementById("newcont");
     element.appendChild(para);
+    
 
     let titlelabel = document.createElement("LABEL");
     let titlelabeltext = document.createTextNode("title");
@@ -42,8 +44,12 @@ function showNewProjectForm(){
         let newproject = new Project(titlefield.value, descriptionfield.value);
         // console.log(project3);
         allProjects.push(newproject);
-        // document.getElementById("form").reset();
-
+        console.log(allProjects);
+        //TODO need to hide form after hitting submit button
+        para.parentNode.removeChild(para);
+        // document.getElementsByClassName('form').hidden = true;
+        // document.getElementById('hideme').style.visibility = 'hidden';
+        // submitbtn.removeEventListener("click");
     });
          
     
@@ -88,7 +94,7 @@ viewAllInProject(project1);
 
 viewTodo(todo1);
 
-console.log(allProjects);
+
 
 
 let newprobtn = document.getElementById("newprojectbutton");
