@@ -2,6 +2,36 @@ import {allProjects, allTodos, Todo, Project, addTodoToProject, delTodoFromProje
     delTodo, viewAllInProject, viewTodo} from './logic';
 import './style.css';
 
+function addProToDom(title){
+    let projectItem = document.createElement("BUTTON");
+
+    let sidebarElement = document.getElementById("side");
+    sidebarElement.appendChild(projectItem);
+
+    let projectItemText = document.createTextNode(title);
+    projectItem.setAttribute("for", "project");
+    projectItem.appendChild(projectItemText);
+
+}
+
+function addTodoToDom(title, duedate, status){
+
+    let todoItem = document.createElement("BUTTON");
+
+    let contentElement = document.getElementById("cont");
+    contentElement.appendChild(todoItem);
+
+    let todoItemText = document.createTextNode(title + " " + duedate + " " +  status);
+    todoItem.setAttribute("for", "todo");
+    todoItem.appendChild(todoItemText);
+
+}
+
+function updateDisplay(){
+
+}
+
+
 function showNewProjectForm(){
 
     let projectbox = document.createElement("p");
@@ -46,7 +76,7 @@ function showNewProjectForm(){
         allProjects.push(newproject);
         console.log(allProjects);
         projectbox.parentNode.removeChild(projectbox);
-        
+        addProToDom(titlefield.value);
     });
          
 }
@@ -144,6 +174,7 @@ function showNewTodoForm(){
         allTodos.push(newtodo);
         console.log(allTodos);
         todobox.parentNode.removeChild(todobox);
+        addTodoToDom(titlefield.value, duedatefield.value, statusfield.value);
         
     });
 
