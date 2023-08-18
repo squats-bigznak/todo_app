@@ -2,6 +2,25 @@ import {allProjects, allTodos, Todo, Project, addTodoToProject, delTodoFromProje
     delTodo, viewAllInProject, viewTodo} from './logic';
 import './style.css';
 
+
+
+function viewTodosInProject(Project){
+    //clear dom tree in todo area
+    todobox.parentNode.removeChild(todobox);
+    //call addTodoToDom for each Todo within project
+    for (const tds of Project){
+        addTodoToDom(title)
+    }
+    
+
+}
+
+function viewTodoDetails(Todo){
+    //clear dom tree for todo detail area
+    //show all elements of todo
+
+}
+
 function addProToDom(title){
     let projectItem = document.createElement("BUTTON");
 
@@ -12,6 +31,7 @@ function addProToDom(title){
     projectItem.setAttribute("for", "project");
     projectItem.appendChild(projectItemText);
 
+    
 }
 
 function addTodoToDom(title, duedate, status){
@@ -24,10 +44,6 @@ function addTodoToDom(title, duedate, status){
     let todoItemText = document.createTextNode(title + " " + duedate + " " +  status);
     todoItem.setAttribute("for", "todo");
     todoItem.appendChild(todoItemText);
-
-}
-
-function updateDisplay(){
 
 }
 
@@ -65,13 +81,13 @@ function showNewProjectForm(){
     projectbox.appendChild(descriptionlabel);
     projectbox.appendChild(descriptionfield);
 
-    let submitbtn = document.createElement("BUTTON");
-    let submitbtntext = document.createTextNode("submit");
+    let submitprobtn = document.createElement("BUTTON");
+    let submitprobtntext = document.createTextNode("submit project");
 
-    submitbtn.appendChild(submitbtntext);
-    projectbox.appendChild(submitbtn);
+    submitprobtn.appendChild(submitprobtntext);
+    projectbox.appendChild(submitprobtn);
 
-    submitbtn.addEventListener("click", () => {
+    submitprobtn.addEventListener("click", () => {
         let newproject = new Project(titlefield.value, descriptionfield.value);
         allProjects.push(newproject);
         console.log(allProjects);
@@ -163,14 +179,39 @@ function showNewTodoForm(){
     todobox.appendChild(statuslabel);
     todobox.appendChild(statusfield);
 
-    let submitbtn = document.createElement("BUTTON");
-    let submitbtntext = document.createTextNode("submit");
+    //need dropdown menu for which project it belongs to
 
-    submitbtn.appendChild(submitbtntext);
-    todobox.appendChild(submitbtn);
+    let projectselectorlabel = document.createElement("LABEL");
+    let projectselectorlabeltext = document.createTextNode("project");
+    projectselectorlabel.classList.add('labels');
+    projectselectorlabel.setAttribute("for", "status");
+    projectselectorlabel.appendChild(projectselectorlabeltext);
+    todobox.appendChild(projectselectorlabel);
 
-    submitbtn.addEventListener("click", () => {
-        let newtodo = new Todo(titlefield.value, descriptionfield.value, duedatefield.value, priorityfield.value, notesfield.value, statusfield.value);
+    let projectselectorbtn = document.createElement("SELECT");
+    projectselectorbtn.setAttribute("id","projectselection");
+    let projectselectorbtntext = document.createTextNode("PROJECT");
+    projectselectorbtn.appendChild(projectselectorbtntext);
+    todobox.appendChild(projectselectorbtn);
+
+    
+    for (const project of allProjects) {
+        let option = document.createElement("option");
+        let optionText = document.createTextNode(project.title);
+        option.appendChild(optionText);
+        projectselectorbtn.appendChild(option);
+      }
+      
+    let submittodobtn = document.createElement("BUTTON");
+    let submittodobtntext = document.createTextNode("submit todo");
+
+    submittodobtn.appendChild(submittodobtntext);
+    todobox.appendChild(submittodobtn);
+
+    submittodobtn.addEventListener("click", () => {
+
+        let projectselection = document.querySelector('#projectselection');
+        let newtodo = new Todo(titlefield.value, descriptionfield.value, duedatefield.value, priorityfield.value, notesfield.value, statusfield.value, projectselection.value);
         allTodos.push(newtodo);
         console.log(allTodos);
         todobox.parentNode.removeChild(todobox);
@@ -179,8 +220,6 @@ function showNewTodoForm(){
     });
 
 }
-
-
 
 //tests
 
