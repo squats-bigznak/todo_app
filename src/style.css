@@ -73,9 +73,8 @@ button{
     font-family: 'Courier New', Courier, monospace;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
+	display: block;
 	font-size: 20px;
-
   }
 
   button:hover{
@@ -164,4 +163,22 @@ textarea {
   border-radius: 5px;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px #999;
+}
+
+cancel{
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background-color: rgb(78, 7, 162); 
+	border: none;
+	border-radius: 10px;
+	color: white;
+	margin: 4px;
+	padding: 8px 18px;
+    font-family: 'Courier New', Courier, monospace;
+	/* text-align: center; */
+	text-decoration: none;
+	display: block;
+	font-size: 20px;
+
 }

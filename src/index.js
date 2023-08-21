@@ -22,26 +22,9 @@ function viewTodosInProject(projectTitle){
     //clear dom tree in todo area 
     let allTodos = document.querySelectorAll('[id=todo]');
     allTodos.forEach(hideTodos);
-
+    //display the ones in each project
     let relevantTodos = document.querySelectorAll(`[data-project=${CSS.escape(projectTitle)}]`);
-    // console.log(relevantTodos);
     relevantTodos.forEach(revealTodos);
-
-    // for (const todo of relevantTodos){
-    //     // console.log("piss");
-    //     todo.style.display = "block";
-    // }
-    // //call addTodoToDom for each Todo within project
-    // for (const project of allProjects){
-    //     if (projectTitle == project.title){
-
-    //         project.todolist.style.display = "block"
-    //     }
-    //     // addTodoToDom(tds.title);
-    // }  
-
-    
-
 }
 
 function hideTodos(todo){
@@ -74,9 +57,6 @@ function addProToDom(title){
     let projectItemText = document.createTextNode(title);
     projectItem.setAttribute("for", "project");
     projectItem.appendChild(projectItemText);
-
-    // let newprobtn = document.getElementById("newprojectbutton");
-    // newprobtn.addEventListener('click', function(){showNewProjectForm()});
     
     projectItem.setAttribute("id","projectitem" + title);
 
@@ -114,6 +94,17 @@ function showNewProjectForm(){
 
     let frame = document.getElementById("newcont");
     frame.appendChild(projectbox);
+
+    let cancelbtn = document.createElement("cancel")
+    let cancelbtntext = document.createTextNode("x");
+    cancelbtn.classList.add("cancel");
+    cancelbtn.setAttribute("for", "cancel");
+    cancelbtn.appendChild(cancelbtntext);
+    projectbox.appendChild(cancelbtn);
+
+    cancelbtn.addEventListener("click", () => {
+        projectbox.parentNode.removeChild(projectbox);
+    });
     
     let titlelabel = document.createElement("LABEL");
     let titlelabeltext = document.createTextNode("title");
@@ -168,6 +159,17 @@ function showNewTodoForm(){
     
     let frame = document.getElementById("newcont");
     frame.appendChild(todobox);
+
+    let cancelbtn = document.createElement("cancel")
+    let cancelbtntext = document.createTextNode("x");
+    cancelbtn.classList.add("cancel");
+    cancelbtn.setAttribute("for", "cancel");
+    cancelbtn.appendChild(cancelbtntext);
+    todobox.appendChild(cancelbtn);
+
+    cancelbtn.addEventListener("click", () => {
+        todobox.parentNode.removeChild(todobox);
+    });
     
     let titlelabel = document.createElement("LABEL");
     let titlelabeltext = document.createTextNode("title");
@@ -257,14 +259,12 @@ function showNewTodoForm(){
     todobox.appendChild(projectselectorbtn);
 
     //dropdown box to select project
-    // let selectedproject;
 
     for (const project of allProjects) {
         let option = document.createElement("option");
         let optionText = document.createTextNode(project.title);
         option.appendChild(optionText);
         projectselectorbtn.appendChild(option);
-        // selectedproject = project;
       }
       
     let submittodobtn = document.createElement("BUTTON");
@@ -286,7 +286,6 @@ function showNewTodoForm(){
                 project.todolist.push(newtodo);
             }
         }    
-        // selectedproject.todolist.push(newtodo);
         console.log(allTodos);
         todobox.parentNode.removeChild(todobox);
         addTodoToDom(titlefield.value, duedatefield.value, statusfield.value, projectselection.value);
