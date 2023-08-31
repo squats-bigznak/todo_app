@@ -2,21 +2,6 @@ import {allProjects, allTodos, Todo, Project, addTodoToProject, delTodoFromProje
     delTodo, viewAllInProject, viewTodo} from './logic';
 import './style.css';
 
-// function declareTodoBox(){
-//     let todobox = document.createElement("p");
-//         todobox.classList.add('form');
-//         todobox.id = 'hideme';
-//         return todobox;
-//     }
-
-// function declareProjectBox(){
-//     let projectbox = document.createElement("p");
-//         projectbox.classList.add('form');
-//         projectbox.id = 'hideme';
-//         return projectbox;
-//     }
-
-
 
 function viewTodosInProject(projectTitle){
     //clear dom tree in todo area 
@@ -48,16 +33,21 @@ function viewTodoDetails(Todo){
 
 }
 
-function addProToDom(title){
+function addProToDom(title, description){
     let projectItem = document.createElement("BUTTON");
 
     let sidebarElement = document.getElementById("side");
     sidebarElement.appendChild(projectItem);
 
-    let projectItemText = document.createTextNode(title);
+    let projectItemText = document.createTextNode(title + " " + "0 items");
     projectItem.setAttribute("for", "project");
     projectItem.appendChild(projectItemText);
-    
+    projectItem.classList.add("project");
+
+    // console.log(title.length);
+
+    projectItem.setAttribute("width", title.length + 'ch');
+    projectItem.setAttribute("overflow", "hidden");
     projectItem.setAttribute("id","projectitem" + title);
 
     let revealprojectbtn = document.getElementById("projectitem" + title);
@@ -141,7 +131,7 @@ function showNewProjectForm(){
         allProjects.push(newproject);
         console.log(allProjects);
         projectbox.parentNode.removeChild(projectbox);
-        addProToDom(titlefield.value);
+        addProToDom(titlefield.value, descriptionfield.value, 0);
     });
          
 }
@@ -271,25 +261,36 @@ function showNewTodoForm(){
     let submittodobtntext = document.createTextNode("submit todo");
 
     submittodobtn.appendChild(submittodobtntext);
-    todobox.appendChild(submittodobtn);
+    todobox.appendChild(submittodobtn); 
 
     submittodobtn.addEventListener("click", () => {
 
         let projectselection = document.querySelector('#projectselection');
+        
         //create new todo
         let newtodo = new Todo(titlefield.value, descriptionfield.value, duedatefield.value, priorityfield.value, notesfield.value, statusfield.value, projectselection.value);
         //add todo to allTodos
         allTodos.push(newtodo);
         //add todo to appropriate project
+        let numberOfTodos;
+
         for (const project of allProjects) {
-            if (projectselection == project.title){
+            if (projectselection.value == project.title){
                 project.todolist.push(newtodo);
+                //grab the length for the next part
+                console.log("project.todolist.length" + project.todolist.length);
+                numberOfTodos = project.todolist.length;
             }
-        }    
+        }   
+
         console.log(allTodos);
         todobox.parentNode.removeChild(todobox);
         addTodoToDom(titlefield.value, duedatefield.value, statusfield.value, projectselection.value);
-        
+
+        //replace project textnode to reflect updated number of todos therein
+
+         let relevantProject = document.getElementById("projectitem" + projectselection.value);
+         relevantProject.textContent = (projectselection.value + " " + numberOfTodos + " items");
     });
 
 }
