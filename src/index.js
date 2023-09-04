@@ -5,7 +5,7 @@ import './style.css';
 
 function viewTodosInProject(projectTitle){
     //clear dom tree in todo area 
-    let allTodos = document.querySelectorAll('[id=todo]');
+    let allTodos = document.querySelectorAll('[data-todo=todo]');
     allTodos.forEach(hideTodos);
     //clear dom tree in todo detail area for good measure
     let allTodoDetails = document.querySelectorAll('[id=tododetail]');
@@ -74,10 +74,6 @@ function viewTodoDetails(Todo){
 
 
     todoDetail.setAttribute("id", "tododetail");
-    // todoDetail.setAttribute("data-tododetail", Todo);
-
-
-    //show all elements of todo
 
 }
 
@@ -114,7 +110,7 @@ function addTodoToDom(title, duedate, status, project){
     todoItem.setAttribute("for", "todo");
     todoItem.appendChild(todoItemText);
 
-    todoItem.setAttribute("id", "todo");
+    todoItem.setAttribute("data-todo", "todo");
     todoItem.setAttribute("data-project", project);
     todoItem.setAttribute("id","todoitem" + title);
 
