@@ -63,6 +63,12 @@ div{
     background-color: rgb(78, 83, 232);
 }
 
+.detail{
+    flex: 5;
+    
+    background-color: rgb(78, 33, 232);
+}
+
 button{
 	background-color: rgb(78, 7, 162); 
 	border: none;

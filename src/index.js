@@ -7,7 +7,10 @@ function viewTodosInProject(projectTitle){
     //clear dom tree in todo area 
     let allTodos = document.querySelectorAll('[id=todo]');
     allTodos.forEach(hideTodos);
-    //display the ones in each project
+    //clear dom tree in todo detail area for good measure
+    let allTodoDetails = document.querySelectorAll('[id=tododetail]');
+    allTodoDetails.forEach(hideTodos);
+    //display the todos in each project
     let relevantTodos = document.querySelectorAll(`[data-project=${CSS.escape(projectTitle)}]`);
     relevantTodos.forEach(revealTodos);
 }
@@ -17,7 +20,6 @@ function hideTodos(todo){
 }
 
 function revealTodos(todo){
-    console.log("piss");
     todo.style.display = "block";
 }
 
@@ -28,7 +30,53 @@ function clearDom(domtoclear){
 }
 
 function viewTodoDetails(Todo){
-    //clear dom tree for todo detail area
+
+    //hide all previous todo details
+
+    let allTodoDetails = document.querySelectorAll('[id=tododetail]');
+    allTodoDetails.forEach(hideTodos);
+
+    let detailArea = document.getElementById("det");
+    
+    let todoDetail = document.createElement("DIV");
+    detailArea.appendChild(todoDetail);
+
+    //this will set up the css to accept linebreaks
+    todoDetail.setAttribute('style', 'white-space: pre;');
+
+    //declare empty array that will get a copy from logic.js
+    let todoTextFields = [];
+
+    //retrieve the todo from logic.js
+    for (const todo of allTodos) {
+        if (todo.title == Todo){
+            todoTextFields = todo;
+        }
+    }   
+
+    let todoDetailTitle = document.createTextNode(todoTextFields.title + "\r\n");
+    todoDetail.appendChild(todoDetailTitle);
+
+    let todoDetailDescription = document.createTextNode(todoTextFields.description + "\r\n");
+    todoDetail.appendChild(todoDetailDescription);
+
+    let todoDetailDuedate = document.createTextNode(todoTextFields.dueDate + "\r\n");
+    todoDetail.appendChild(todoDetailDuedate);
+
+    let todoDetailPriority = document.createTextNode(todoTextFields.priority + "\r\n");
+    todoDetail.appendChild(todoDetailPriority);
+
+    let todoDetailNotes = document.createTextNode(todoTextFields.notes + "\r\n");
+    todoDetail.appendChild(todoDetailNotes);
+
+    let todoDetailStatus = document.createTextNode(todoTextFields.status + "\r\n");
+    todoDetail.appendChild(todoDetailStatus);
+
+
+    todoDetail.setAttribute("id", "tododetail");
+    // todoDetail.setAttribute("data-tododetail", Todo);
+
+
     //show all elements of todo
 
 }
@@ -68,6 +116,10 @@ function addTodoToDom(title, duedate, status, project){
 
     todoItem.setAttribute("id", "todo");
     todoItem.setAttribute("data-project", project);
+    todoItem.setAttribute("id","todoitem" + title);
+
+    let revealtodobtn = document.getElementById("todoitem" + title);
+    revealtodobtn.addEventListener('click', function(){viewTodoDetails(title)});
 
 }
 
@@ -271,14 +323,13 @@ function showNewTodoForm(){
         let newtodo = new Todo(titlefield.value, descriptionfield.value, duedatefield.value, priorityfield.value, notesfield.value, statusfield.value, projectselection.value);
         //add todo to allTodos
         allTodos.push(newtodo);
-        //add todo to appropriate project
+        
         let numberOfTodos;
-
+        //retrieve project from logic.js and add new todo
         for (const project of allProjects) {
             if (projectselection.value == project.title){
                 project.todolist.push(newtodo);
                 //grab the length for the next part
-                console.log("project.todolist.length" + project.todolist.length);
                 numberOfTodos = project.todolist.length;
             }
         }   
