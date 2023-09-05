@@ -245,17 +245,30 @@ function showNewTodoForm(){
     todobox.appendChild(duedatelabel);
     todobox.appendChild(duedatefield);
 
+    //change this to dropdown box with high/med/low
     let prioritylabel = document.createElement("LABEL");
     let prioritylabeltext = document.createTextNode("priority");
     prioritylabel.classList.add('labels');
     prioritylabel.setAttribute("for", "priority");
     prioritylabel.appendChild(prioritylabeltext);
-
-    let priorityfield = document.createElement("TEXTAREA");
-    priorityfield.setAttribute("type", "text");
-    priorityfield.classList.add('fields');
     todobox.appendChild(prioritylabel);
-    todobox.appendChild(priorityfield);
+
+    let priorityselection = document.createElement("SELECT");
+    priorityselection.setAttribute("id","priorityselection");
+    let priorityselectiontext = document.createTextNode("PRIORITY");
+    priorityselection.appendChild(priorityselectiontext);
+    todobox.appendChild(priorityselection);
+
+    //dropdown box to select project
+
+    const optionarray1 = ['low priority', 'Med Priority', 'HIGH PRIORITY'];
+
+    for (const priority of optionarray1) {
+        let priorityOption = document.createElement("option");
+        let priorityOptionText = document.createTextNode(priority);
+        priorityOption.appendChild(priorityOptionText);
+        priorityselection.appendChild(priorityOption);
+      }
 
     let noteslabel = document.createElement("LABEL");
     let noteslabeltext = document.createTextNode("notes");
@@ -314,9 +327,10 @@ function showNewTodoForm(){
     submittodobtn.addEventListener("click", () => {
 
         let projectselection = document.querySelector('#projectselection');
+        let priorityselection = document.querySelector('#priorityselection');
         
         //create new todo
-        let newtodo = new Todo(titlefield.value, descriptionfield.value, duedatefield.value, priorityfield.value, notesfield.value, statusfield.value, projectselection.value);
+        let newtodo = new Todo(titlefield.value, descriptionfield.value, duedatefield.value, priorityselection.value, notesfield.value, statusfield.value, projectselection.value);
         //add todo to allTodos
         allTodos.push(newtodo);
         
