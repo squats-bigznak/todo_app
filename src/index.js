@@ -15,6 +15,61 @@ function viewTodosInProject(projectTitle){
     relevantTodos.forEach(revealTodos);
 }
 
+let currentFocusedTodoDetail = "";
+
+// function editTodo{
+
+    //THIS IS A COPY OF THE 
+    //todoItem.setAttribute("id","todoitem" + title);
+
+
+//     console.log("edit")
+
+// }
+
+function deleteTodo(){
+
+    //remove from detail area
+    let allTodoDetails = document.querySelectorAll('[id=tododetail]');
+    allTodoDetails.forEach(hideTodos);
+
+    //delete from the todo DOM
+    currentFocusedTodoDetail.parentNode.removeChild(currentFocusedTodoDetail);
+
+    const currentProjectTitle = currentFocusedTodoDetail.getAttribute("data-project");
+    const currentTodoTitle = currentFocusedTodoDetail.getAttribute("data-todoDetailTitle");
+    //retrieve the todo from logic.js
+
+
+    let numberOfTodos = 0;
+        //retrieve project from logic.js 
+    for (const project of allProjects) {
+        if (currentProjectTitle == project.title){
+        
+            // Find the index of the todo to remove
+            let indexToRemove = project.todolist.findIndex(obj => obj.todo === currentTodoTitle);
+
+            // Remove the todo using the splice method
+            if (indexToRemove == -1) {
+                project.todolist.splice(indexToRemove, 1);
+            }
+            //grab the new length 
+            console.log("project title" + project.title);
+            numberOfTodos = project.todolist.length;
+            console.log(numberOfTodos);
+        }
+    }   
+
+    
+
+    //replace project textnode to reflect updated number of todos therein
+
+    let relevantProjectInFocus = document.getElementById("projectitem" + currentProjectTitle);
+    relevantProjectInFocus.textContent = (currentProjectTitle + " " + numberOfTodos + " items");    
+
+    
+}
+
 function hideTodos(todo){
     todo.style.display = "none";
 }
@@ -74,7 +129,11 @@ function viewTodoDetails(Todo){
 
 
     todoDetail.setAttribute("id", "tododetail");
+    todoDetail.setAttribute("data-todotitle", todoDetailTitle);
 
+    currentFocusedTodoDetail = document.getElementById("todoitem" + todoTextFields.title);
+
+    console.log(currentFocusedTodoDetail);
 }
 
 function addProToDom(title, description){
@@ -344,7 +403,7 @@ function showNewTodoForm(){
             }
         }   
 
-        console.log(allTodos);
+        // console.log(allTodos);
         todobox.parentNode.removeChild(todobox);
         addTodoToDom(titlefield.value, duedatefield.value, statusfield.value, projectselection.value);
 
@@ -384,3 +443,7 @@ let newprobtn = document.getElementById("newprojectbutton");
 newprobtn.addEventListener('click', function(){showNewProjectForm()});
 let newtodobtn = document.getElementById("newtodobutton");
 newtodobtn.addEventListener('click', function(){showNewTodoForm()});
+let edittodobtn = document.getElementById("edittodobutton");
+edittodobtn.addEventListener('click', function(){editTodo()});
+let deletetodobutton = document.getElementById("deletetodobutton");
+deletetodobutton.addEventListener('click', function(){deleteTodo()});
