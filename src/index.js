@@ -17,15 +17,24 @@ function viewTodosInProject(projectTitle){
 
 let currentFocusedTodoDetail = "";
 
-// function editTodo{
+function editTodo(){
 
-    //THIS IS A COPY OF THE 
-    //todoItem.setAttribute("id","todoitem" + title);
+    let focusedTodoToBeEdited = document.getElementById("tododetail");
 
+    //save relevant fields from detail area for autofill
+    let tempTodoTitle = focusedTodoToBeEdited.getAttribute("data-tododetailtitle");
+    let tempTodoDescription = focusedTodoToBeEdited.getAttribute("data-tododescription");
+    let tempTodoDueDate = focusedTodoToBeEdited.getAttribute("data-tododuedate");
+    let tempTodoPriority = focusedTodoToBeEdited.getAttribute("data-todopriority");
+    let tempTodoNotes = focusedTodoToBeEdited.getAttribute("data-todonotes");
+    let tempTodoStatus = focusedTodoToBeEdited.getAttribute("data-todostatus");
 
-//     console.log("edit")
+    deleteTodo();
+    //call showNewTodoForm(title, description, dueDate, priority, notes, status)
 
-// }
+    showNewTodoForm(tempTodoTitle, tempTodoDescription, tempTodoDueDate, tempTodoPriority, tempTodoNotes, tempTodoStatus);
+    
+}
 
 function deleteTodo(){
 
@@ -36,8 +45,8 @@ function deleteTodo(){
     //delete from the todo DOM
     currentFocusedTodoDetail.parentNode.removeChild(currentFocusedTodoDetail);
 
-    const currentProjectTitle = currentFocusedTodoDetail.getAttribute("data-project");
-    const currentTodoTitle = currentFocusedTodoDetail.getAttribute("data-todoDetailTitle");
+    let currentProjectTitle = currentFocusedTodoDetail.getAttribute("data-project");
+    let currentTodoTitle = currentFocusedTodoDetail.getAttribute("data-tododetailtitle");
     //retrieve the todo from logic.js
 
 
@@ -54,20 +63,18 @@ function deleteTodo(){
                 project.todolist.splice(indexToRemove, 1);
             }
             //grab the new length 
-            console.log("project title" + project.title);
             numberOfTodos = project.todolist.length;
-            console.log(numberOfTodos);
         }
     }   
-
-    
 
     //replace project textnode to reflect updated number of todos therein
 
     let relevantProjectInFocus = document.getElementById("projectitem" + currentProjectTitle);
-    relevantProjectInFocus.textContent = (currentProjectTitle + " " + numberOfTodos + " items");    
-
+    relevantProjectInFocus.textContent = (currentProjectTitle + " " + numberOfTodos + " items"); 
     
+    //clear detail area Dom
+    let detailArea = document.getElementById("tododetail");
+    clearDom(detailArea);
 }
 
 function hideTodos(todo){
@@ -127,13 +134,19 @@ function viewTodoDetails(Todo){
     let todoDetailStatus = document.createTextNode(todoTextFields.status + "\r\n");
     todoDetail.appendChild(todoDetailStatus);
 
-
+    //all of these attributes are to autofill the edit form if needed
     todoDetail.setAttribute("id", "tododetail");
-    todoDetail.setAttribute("data-todotitle", todoDetailTitle);
+    todoDetail.setAttribute("data-tododetailtitle", todoTextFields.title);
+    todoDetail.setAttribute("data-tododescription", todoTextFields.description);
+    todoDetail.setAttribute("data-tododuedate", todoTextFields.dueDate);
+    todoDetail.setAttribute("data-todopriority", todoTextFields.priority);
+    todoDetail.setAttribute("data-todonotes", todoTextFields.notes);
+    todoDetail.setAttribute("data-todostatus", todoTextFields.status);
+
+    //this stores the todo currently in the detail area for deletion and editing
 
     currentFocusedTodoDetail = document.getElementById("todoitem" + todoTextFields.title);
 
-    console.log(currentFocusedTodoDetail);
 }
 
 function addProToDom(title, description){
@@ -239,11 +252,10 @@ function showNewProjectForm(){
         console.log(allProjects);
         projectbox.parentNode.removeChild(projectbox);
         addProToDom(titlefield.value, descriptionfield.value, 0);
-    });
-         
+    });    
 }
 
-function showNewTodoForm(){
+function showNewTodoForm(title, description, dueDate, priority, notes, status){
 
     //clear out any errant dom
     let toclear = document.getElementById("hideme");
@@ -277,6 +289,10 @@ function showNewTodoForm(){
     let titlefield = document.createElement("TEXTAREA");
     titlefield.setAttribute("type", "text");
     titlefield.classList.add('fields');
+    //prefill field
+    if (title){
+        titlefield.value = title;
+    };
     todobox.appendChild(titlelabel);
     todobox.appendChild(titlefield);
 
@@ -289,6 +305,10 @@ function showNewTodoForm(){
     let descriptionfield = document.createElement("TEXTAREA");
     descriptionfield.setAttribute("type", "text");
     descriptionfield.classList.add('fields');
+    //prefill field
+    if (description){
+        descriptionfield.value = description;
+    };
     todobox.appendChild(descriptionlabel);
     todobox.appendChild(descriptionfield);
 
@@ -301,6 +321,10 @@ function showNewTodoForm(){
     let duedatefield = document.createElement("TEXTAREA");
     duedatefield.setAttribute("type", "text");
     duedatefield.classList.add('fields');
+    //prefill field
+    if (dueDate){
+        duedatefield.value = dueDate;
+    };
     todobox.appendChild(duedatelabel);
     todobox.appendChild(duedatefield);
 
@@ -338,6 +362,10 @@ function showNewTodoForm(){
     let notesfield = document.createElement("TEXTAREA");
     notesfield.setAttribute("type", "text");
     notesfield.classList.add('fields');
+    //prefill field
+    if (notes){
+        notesfield.value = notes;
+    };
     todobox.appendChild(noteslabel);
     todobox.appendChild(notesfield);
 
@@ -412,32 +440,7 @@ function showNewTodoForm(){
          let relevantProject = document.getElementById("projectitem" + projectselection.value);
          relevantProject.textContent = (projectselection.value + " " + numberOfTodos + " items");
     });
-
 }
-
-//tests
-
-//create new todo
-const todo1 = new Todo("wash dog", "give otto a bath", "tomorrow", "high priority", "not fun", "done");
-const todo2 = new Todo();
-
-//rewrite properties
-todo2.title = "spud";
-
-//create new project
-const project1 = new Project("dogstuff", "stuff dealing with dogs");
-
-
-addTodoToProject(project1, todo1);
-
-viewAllInProject(project1);
-
-delTodoFromProject(project1, todo1);
-
-viewAllInProject(project1);
-
-viewTodo(todo1);
-
 
 let newprobtn = document.getElementById("newprojectbutton");
 newprobtn.addEventListener('click', function(){showNewProjectForm()});
